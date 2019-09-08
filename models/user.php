@@ -48,12 +48,11 @@ class UserModel extends Model{
 					"username"	=> $row['username'],
 					"idtype"	=> $row['idtype']
 				);
-				header('Location: '.ROOT_URL.'shares');
+				header('Location: '.ROOT_URL.'reports/index');
 			} else {
 				Messages::setMsg('Incorrect Login', 'error');
 			}
 		}
-		echo "Eu estou no login!!";
 		return;
 	}
 }

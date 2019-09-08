@@ -1,59 +1,54 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--<meta name="apple-mobile-web-app-capable" content="yes">-->
 	<title>Lotosystem</title>
-	<!--<link rel="stylesheet" href="<?php echo ROOT_PATH; ?>assets/css/bootstrap.css">
-	<link rel="stylesheet" href="<?php echo ROOT_PATH; ?>assets/css/style.css">-->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
-  <script src="<?php echo ROOT_PATH; ?>assets/css/jquery.tabledit.js"></script>
+  <link rel="stylesheet" href="<?php echo ROOT_URL; ?>assets/css/bootstrap.min.css">
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="<?php echo ROOT_URL; ?>assets/js/jquery.slim.min.js"></script>
+  <script src="<?php echo ROOT_URL; ?>assets/js/popper.min.js"></script>
+  <script src="<?php echo ROOT_URL; ?>assets/js/bootstrap.min.js"></script>
+  <script src="<?php echo ROOT_URL; ?>assets/js/jquery.mask.min.js"></script>
+  <!--<script src="<?php echo ROOT_URL; ?>assets/js/validate.min.js"></script>-->
+  <!--<script src="<?php echo ROOT_URL; ?>assets/js/jquery.tabledit.js"></script>-->
 </head>
 <body>
-	<!--<nav class="navbar navbar-default">-->
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Lotosystem</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="<?php echo ROOT_URL; ?>">Home</a></li>
-            <li><a href="<?php echo ROOT_URL; ?>shares">Shares</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
+        <a class="navbar-brand" href="<?php echo ROOT_URL; ?>">Lotosystem 
             <?php if(isset($_SESSION['is_logged_in'])) : ?>
-            <li><a href="<?php echo ROOT_URL; ?>">Welcome <?php echo $_SESSION['user_data']['name']; ?></a></li>
-            <li><a href="<?php echo ROOT_URL; ?>users/logout">Logout</a></li>
-          <?php else : ?>
-            <li><a href="<?php echo ROOT_URL; ?>users/login">Login</a></li>
-            <!--<li><a href="<?php echo ROOT_URL; ?>users/register">Register</a></li>-->
-          <?php endif; ?>
+              <em><?php echo 'Ola ' .$_SESSION['user_data']['username']; ?></em>
+            <?php endif; ?>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="nav navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="<?php echo ROOT_URL; ?>">Home</a></li>
+              <?php if(isset($_SESSION['is_logged_in'])) : ?>
+                <li class="nav-item"><a class="nav-link" href="<?php echo ROOT_URL; ?>shares">Shares</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo ROOT_URL; ?>operations">Operations</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo ROOT_URL; ?>reports">Reports</a></li>
+              <?php endif; ?>
+              <?php if(isset($_SESSION['is_logged_in'])) : ?>
+                <li class="nav-item"><a class="nav-link" href="<?php echo ROOT_URL; ?>users/logout">Logout</a></li>
+              <?php else : ?>
+                <li class="nav-item"><a class="nav-link" href="<?php echo ROOT_URL; ?>users/login">Login</a></li>
+              <?php endif; ?>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
-    <div class="container">
-
-     <div class="row">
+    <div class="jumbotron jumbotron-fluid">
      	<?php require($view); ?>
       <?php Messages::display(); ?>
-     </div>
-
-    </div><!-- /.container -->
+      </div>
 </body>
 <footer style="text-align: center">
   <p class="mt-5 mb-3 text-muted">© 2018 Copyright:<a href=""> Loteria Lotoplaza</a></p>
