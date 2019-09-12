@@ -1,10 +1,10 @@
 <?php if(isset($_SESSION['is_logged_in'])) : ?>
-<div class="container">
-    <h3 class="panel-title">Add operation</h3>
-	<form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
-		<div class="form-group">
-			<label for="operationid" class="sr-only">Select operation</label>
-			<select id="operationid" name="operationid" class="form-control form-control-lg">
+<div class="ui fluid">
+	<h1 class="ui header">Adicione operação</h1>
+	<form class="ui form segment" method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+		<div class="field">
+			<label for="operationid">Seleccione operação</label>
+			<select id="operationid" name="operationid" class="ui fluid normal dropdown">
 				<option selected hidden>Choose here</option>
 					<?php foreach($viewmodel as $item) : ?>
 						<option value="<?php echo $item['id']?>"><?php echo $item['name'] ?></option>
@@ -12,13 +12,16 @@
 			</select>
 			<span class="help-block"></span>
 		</div>
-		<div class="form-group">
-			<label for="value" class="sr-only">Value</label>
-			<input type="number" id="value" name="value" class="form-control form-control-lg"  step="0.01" placeholder="0.00">
+		<div class="field">
+			<label for="value">Valor</label>
+			<div class="ui left icon input">
+				<i class="money icon"></i>
+				<input type="number" id="value" name="value" step="0.01" placeholder="0.00">
+			</div>
 			<span class="help-block"></span>
 		</div>
-		<div class="form-group">
-			<input class="btn btn-primary" type="submit" value="Submit" name="submit">              
+		<div class="field">
+			<input class="ui fluid large teal submit button" type="submit" value="Submit" name="submit">              
 		</div>
 		<label>
 			<span class="help-block"></span>

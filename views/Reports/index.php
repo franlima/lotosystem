@@ -1,9 +1,9 @@
-<div class="container">
-    <h3 class="panel-title">Daily TFL Report</h3>
-	<form method="post" action="<?php echo ROOT_URL; ?>reports/day">
-		<div class="form-group">
-			<label for="selectusername" class="sr-only">Select username</label>
-			<select class="form-control form-control-lg" name="selectusername">
+<div class="ui fluid">
+	<h1 class="ui header">Selecione o usuário</h1>
+	<form class="ui form segment" method="post" action="<?php echo ROOT_URL; ?>reports/day">
+		<div class="field">
+			<label for="selectusername" >Nome</label>
+			<select class="ui fluid normal dropdown" name="selectusername">
 				<option selected hidden>Choose here</option>
 					<?php foreach($viewmodel as $item) : ?>
 						<option value="<?php echo $item['id']. ',' .$item['idtype']. ',' .$item['username'] ?>"><?php echo $item['username'] ?></option>
@@ -11,13 +11,16 @@
 			</select>
 			<span class="help-block"></span>
 		</div>
-		<div class="form-group">
-			<label for="date" class="sr-only">Select date:</label>
-			<input type="Date" id="date" name="date" class="form-control form-control-lg" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d', strtotime('-5 day', time())); ?>" max="<?php echo date('Y-m-d'); ?>">
+		<div class="field">
+			<label for="date">Selecione a data:</label>
+			<div class="ui left icon input">
+				<i class="calendar icon"></i>
+				<input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d', strtotime('-5 day', time())); ?>" max="<?php echo date('Y-m-d'); ?>">
+			</div>
 			<span class="help-block"></span>
 		</div>
-		<div class="form-group">
-			<input class="btn btn-primary" type="submit" value="Submit" name="submit">              
+		<div class="field">
+			<input class="ui fluid large teal submit button" type="submit" value="Submit" name="submit">              
 		</div>
 		<label>
 			<span class="help-block"></span>
