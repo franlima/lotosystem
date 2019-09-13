@@ -1,8 +1,7 @@
 <div class="ui fluid">
-	<h1 class="ui header">Selecione o usuário</h1>
+	<h1 class="ui inverted header">Selecione o usuário</h1>
 	<form class="ui form segment" method="post" action="<?php echo ROOT_URL; ?>reports/day">
 		<div class="field">
-			<label for="selectusername" >Nome</label>
 			<select class="ui fluid normal dropdown" name="selectusername">
 				<option selected hidden>Choose here</option>
 					<?php foreach($viewmodel as $item) : ?>
@@ -12,7 +11,6 @@
 			<span class="help-block"></span>
 		</div>
 		<div class="field">
-			<label for="date">Selecione a data:</label>
 			<div class="ui left icon input">
 				<i class="calendar icon"></i>
 				<input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d', strtotime('-5 day', time())); ?>" max="<?php echo date('Y-m-d'); ?>">

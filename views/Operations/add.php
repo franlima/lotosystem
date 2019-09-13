@@ -1,9 +1,8 @@
 <?php if(isset($_SESSION['is_logged_in'])) : ?>
 <div class="ui fluid">
-	<h1 class="ui header">Adicione operação</h1>
+	<h1 class="ui inverted header">Adicione operação</h1>
 	<form class="ui form segment" method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
 		<div class="field">
-			<label for="operationid">Seleccione operação</label>
 			<select id="operationid" name="operationid" class="ui fluid normal dropdown">
 				<option selected hidden>Choose here</option>
 					<?php foreach($viewmodel as $item) : ?>
@@ -13,7 +12,6 @@
 			<span class="help-block"></span>
 		</div>
 		<div class="field">
-			<label for="value">Valor</label>
 			<div class="ui left icon input">
 				<i class="money icon"></i>
 				<input type="number" id="value" name="value" step="0.01" placeholder="0.00">
