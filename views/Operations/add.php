@@ -14,16 +14,19 @@
 		<div class="field">
 			<div class="ui left icon input">
 				<i class="money icon"></i>
-				<input type="number" id="value" name="value" step="0.01" placeholder="0.00">
+				<input type="text" id="value" name="value" placeholder="0.00">
 			</div>
 			<span class="help-block"></span>
 		</div>
 		<div class="field">
-			<input class="ui fluid large teal submit button" type="submit" value="Submit" name="submit">              
+			<input class="ui fluid large orange submit button" type="submit" value="Submit" name="submit">              
 		</div>
 		<label>
 			<span class="help-block"></span>
 		</label>		
 	</form>
 </div>
+<script>
+	$("#value").maskMoney({thousands:'', decimal:'.'});
+</script>
 <?php endif; ?>

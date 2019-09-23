@@ -1,6 +1,6 @@
 <div class="ui middle aligned center aligned grid">
   <div class="column">
-    <h2 class="ui teal image header">
+    <h2 class="ui inverted image header">
       <!--<img src="assets/images/logo.png" class="image">-->
       <div class="content">
         Login
@@ -20,7 +20,7 @@
             <input type="password" id="inputPassword" name="password" value="<?php $_SERVER['PHP_SELF']; ?>" placeholder="senha">
           </div>
         </div>
-        <input class="ui fluid large teal submit button" type="submit" name="submit" value="Login">
+        <input class="ui fluid large orange submit button" type="submit" name="submit" value="Login">
       </div>
       <div class="ui error message"></div>
     </form>

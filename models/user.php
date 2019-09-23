@@ -5,6 +5,7 @@ class UserModel extends Model{
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 		$password = md5($post['password']);
+		$username = $post['username'];
 
 		if($post['submit']){
 			if($post['username'] == '' || $post['password'] == ''){
@@ -14,7 +15,7 @@ class UserModel extends Model{
 
 			// Insert into MySQL
 			$this->query('INSERT INTO users (username, password) VALUES(:username, :password)');
-			$this->bind(':username', $post['username']);
+			$this->bind(':username', $username);
 			$this->bind(':password', $password);
 			$this->execute();
 			// Verify
@@ -27,28 +28,37 @@ class UserModel extends Model{
 		return;
 	}
 
+	public function change(){
+		$this->query('SELECT * FROM users ORDER BY username ASC');
+		$rows = $this->resultSet();
+		return $rows;
+	}
+
 	public function login(){
 		// Sanitize POST
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 		$password = md5($post['password']);
+		$username = $post['username'];
 
 		if($post['submit']){
 			// Compare Login
 			$this->query('SELECT * FROM users WHERE username = :username AND password = :password');
-			$this->bind(':username', $post['username']);
+			$this->bind(':username', $username);
 			$this->bind(':password', $password);
-			
 			$row = $this->single();
 
 			if($row){
+
 				$_SESSION['is_logged_in'] = true;
 				$_SESSION['user_data'] = array(
-					"id"	=> $row['id'],
+					"userid"	=> $row['id'],
 					"username"	=> $row['username'],
-					"idtype"	=> $row['idtype']
+					"idtype"	=> $row['idtype'],
+					"date"	=> date('Y-m-d')
 				);
-				header('Location: '.ROOT_URL.'reports/index');
+
+				header('Location: '.ROOT_URL.'reports/');
 			} else {
 				Messages::setMsg('Incorrect Login', 'error');
 			}

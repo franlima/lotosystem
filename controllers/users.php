@@ -5,6 +5,11 @@ class Users extends Controller{
 		$this->returnView($viewmodel->register(), true);
 	}
 
+	protected function change(){
+		$viewmodel = new UserModel();
+		$this->returnView($viewmodel->change(), true);
+	}
+
 	protected function login(){
 		$viewmodel = new UserModel();
 		$this->returnView($viewmodel->login(), true);

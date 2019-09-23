@@ -1,98 +1,109 @@
-<div class="container">
-	<div class="panel panel-info">
-		<h3 style="text-align: center;">TFL REPORT DATA</h3>
-		<div class="panel-heading">
-			<h4>INFORMATION
-				<a class="btn btn-info btn-sm" href="<?php echo ROOT_URL;?>reports">Change
-					<img src="<?php echo ROOT_URL; ?>assets/icons/si-glyph-edit.svg" style="width: 20px; heigth: 20px; color: green;" />					
-				</a>
-			</h4>
-			<table class="table table-light table-bordered table-sm">
-				<tbody>
-					<tr>
-						<th>Name: <?php echo $_SESSION['current_user']['username']?>
-						</th>
-					</tr>
-					<tr>
-						<th>Date: <?php echo $_SESSION['current_user']['date']?></th>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="panel-body">
-			<h4>OPERATIONS
-			<a class="btn btn-info btn-sm" href="<?php echo ROOT_URL;?>operations/add">Add
-				<img src="<?php echo ROOT_URL; ?>/assets/icons/si-glyph-button-plus.svg" style="width: 20px; heigth: 20px; color: green;" />
-			</a>
-			</h4>
-			<table class="table table-light table-bordered table-hover">
-				<thead class="thead-light">
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Name</th>
-						<th scope="col">Value</th>
-						<th scope="col">
-							<span class="badge badge-success"><img src="<?php echo ROOT_URL; ?>assets/icons/si-glyph-checked.svg" style="width: 16px; heigth: 16px;" /></span> or
-							<span class="badge badge-danger"><img src="<?php echo ROOT_URL; ?>assets/icons/si-glyph-button-error.svg" style="width: 16px; heigth: 16px;" /></span>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-				<?php foreach($viewmodel as $item) : ?>
-				<?php if (intval($item['idop']) > 6 ) : ?>
-					<tr style="display:none;">
-				<?php else : ?>
-					<tr>
-				<?php endif ; ?>
-						<th scope="row"><?php echo $item['id'] ?></th>
-						<td><?php echo $item['name'] ?></td>
-						<td id="<?php echo $item['name'] ?>" class="data"><?php echo $item['value'] ?></td>
-						<?php if($item['status'] == '1') : ?>
-							<td><span class="badge badge-success"><img src="<?php echo ROOT_URL; ?>assets/icons/si-glyph-checked.svg" style="width: 16px; heigth: 16px;" /></span></td>
+<div class="ui middle aligned aligned grid">
+	<div class="column">
+		<h2 class="ui inverted centered header">Relatório de Caixa</h2>
+			<div class="ui horizontal segments">
+				<div class="ui segment">
+					<a class="ui large icon label">
+						<i class="user icon"></i>
+						<?php echo $_SESSION['user_data']['username']?>
+					</a>
+				</div>
+				<div class="ui segment">
+					<a class="ui large icon label">
+						<i class="calendar icon"></i>
+						<?php echo $_SESSION['user_data']['date']?>
+					</a>
+				</div>
+			</div>
+			<div class="ui orange segment">
+				<h4>Operações no TFL</h4>
+				<table class="ui unstackable table"">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nome</th>
+							<th>Valor</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php foreach($viewmodel["operations"] as $key => $item) : ?>
+						<?php if (intval($item['idop']) > 6 ) : ?>
+							<tr style="display:none;">
 						<?php else : ?>
-							<td><span class="badge badge-danger"><img src="<?php echo ROOT_URL; ?>assets/icons/si-glyph-button-error.svg" style="width: 16px; heigth: 16px;" /></span></td>
-						<?php endif; ?>
-					</tr>
-				<?php endforeach; ?>
-				</tbody>
-			</table>
-		</div>
-		<div class="panel-footer">
-			<h4>TOTALS
-			<?php if ($_SESSION['user_data']['idtype'] == '1' ) : ?>
-				<a class="btn btn-info btn-sm" href="<?php echo ROOT_URL;?>operations/total">Add
-					<img src="<?php echo ROOT_URL; ?>assets/icons/si-glyph-button-plus.svg" style="width: 20px; heigth: 20px; color: green;" />
-				</a>
-			<?php endif ; ?>
-			</h4>
-			<table class="table table-light table-bordered table-hover">
-				<thead class="thead-light">
-					<tr>
-						<th scope="col">Action</th>
-						<th scope="col">Subtotal</th>
-					</tr>
-				</thead>
-				<tbody id="total">
-				</tbody>
-				<script>
-						var nameofclass = '';
-						var array = {};
-						var value = parseFloat('0');
-						$(function () {
-							$('.data').each(function () {
-								nameofclass = $(this).attr('id');
-								value = parseFloat($(this).text());
-								if (array[nameofclass] == null)
-									array[nameofclass] = value;
-								else
-									array[nameofclass] = parseFloat(array[nameofclass]) + value;
+							<tr>
+						<?php endif ; ?>
+							<td><?php echo $item['id'] ?></td>
+							<td><?php echo $item['name'] ?></td>
+							<td id="<?php echo $item['name'] ?>"><?php echo $item['value'] ?></td>
+							<?php if($item['status'] == '1') : ?>
+								<td><i class="ui green inverted check circle icon"></i></td>
+							<?php else : ?>
+								<td><i class="ui red circle icon"></i></td>
+							<?php endif; ?>
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+					<tfoot class="full-width">
+						<tr>
+						<th></th>
+						<th colspan="4">
+							<a class="ui orange right floated small icon button" href="<?php echo ROOT_URL;?>operations/add">
+								<i class="cogs icon"></i> Adicionar
+							</a>
+						</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="ui orange segment">
+				<h4>TOTALS</h4>
+				<table class="ui unstackable table"">
+					<thead>
+						<tr>
+							<th>Ação</th>
+							<th>Subtotal</th>
+						</tr>
+					</thead>
+					<tbody id="total">
+					<?php foreach($viewmodel["totals"] as $key => $item) : ?>
+						<tr>
+							<td><?php echo $key ?></td>
+							<td><a class="ui tag label"><?php echo $item ?></a></td>
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+					<?php if ($_SESSION['user_data']['idtype'] == '1' ) : ?>
+					<tfoot class="full-width">
+						<tr>
+							<th></th>
+							<th colspan="4">
+								<a class="ui orange right floated small icon button" href="<?php echo ROOT_URL;?>operations/total">
+									<i class="calculator icon"></i> Total
+								</a>
+							</th>
+						</tr>
+					</tfoot>
+					<?php endif ; ?>
+					<script>
+							var nameofclass = '';
+							var array = {};
+							var value = parseFloat('0');
+							$(function () {
+								$('.data').each(function () {
+									nameofclass = $(this).attr('id');
+									value = parseFloat($(this).text());
+									if (array[nameofclass] == null)
+										array[nameofclass] = value;
+									else
+										array[nameofclass] = parseFloat(array[nameofclass]) + value;
+								});
+								$.each(array, function(key, value){
+									$('#total').append('<tr><td>' + key + '</td><td id="' + key + '"><a class="ui tag label">' + value + '</a></td></tr>');
+								});
 							});
-							$.each(array, function(key, value){
-								$('#total').append('<tr><td>' + key + '</td><td id="' + key + '">' + value + '</td></tr>');
-							});
-						});
-				</script>
-			</table>
+					</script>
+				</table>
 		</div>
 	</div>
 </div>

@@ -15,23 +15,29 @@ class OperationModel extends Model{
 				return;
 			}
 
+			$reportid = $_SESSION['user_data']['reportid'];
+			$operationid = $post['operationid'];
+			$value = $post['value'];
+			$date = $_SESSION['user_data']['date'];
+
 			// Insert into MySQL
-			$this->query('INSERT INTO reports (idop, iduser, value, due) VALUES(:idop, :iduser, :value, :due)');
-			$this->bind(':idop', $post['operationid']);
-			$this->bind(':iduser', $_SESSION['current_user']['userid']);
-			$this->bind(':value', $post['value']);
-			$this->bind(':due', $_SESSION['current_user']['date']);
+			$this->query('INSERT INTO operations (idrep, idop, value, due)
+						VALUES (:idrep, :idop, :value, :due)');
+			$this->bind(':idrep', $reportid);
+			$this->bind(':idop', $operationid);
+			$this->bind(':value', $value);
+			$this->bind(':due', $date);
 			$this->execute();
 			// Verify
 			if($this->lastInsertId()){
 				// Redirect
-				header('Location: '.ROOT_URL.'reports/day');
+				header('Location: '.ROOT_URL.'reports/day/' .$reportid);
 			}
 		}
 		else {
-			$this->query('SELECT * FROM operations
-			WHERE operations.id <= 6
-			ORDER BY operations.id ASC');
+			$this->query('SELECT * FROM operationstypes
+			WHERE operationstypes.category = "money"
+			ORDER BY operationstypes.id ASC');
 			$rows = $this->resultSet();
 			return $rows;
 		}
@@ -155,7 +161,7 @@ class OperationModel extends Model{
 		}
 		else {
 			$this->query('SELECT * FROM operations
-			WHERE operations.id > 6
+			WHERE operations.category = "totals"
 			ORDER BY operations.id ASC');
 			$rows = $this->resultSet();
 			return $rows;

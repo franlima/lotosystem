@@ -1,27 +1,50 @@
 <div class="ui fluid">
-	<h1 class="ui inverted header">Selecione o usuário</h1>
-	<form class="ui form segment" method="post" action="<?php echo ROOT_URL; ?>reports/day">
-		<div class="field">
-			<select class="ui fluid normal dropdown" name="selectusername">
-				<option selected hidden>Choose here</option>
-					<?php foreach($viewmodel as $item) : ?>
-						<option value="<?php echo $item['id']. ',' .$item['idtype']. ',' .$item['username'] ?>"><?php echo $item['username'] ?></option>
-					<?php endforeach; ?>
-			</select>
-			<span class="help-block"></span>
-		</div>
-		<div class="field">
-			<div class="ui left icon input">
+	<div class="ui horizontal list">
+		<a class="item">
+			<h1 class="ui teal inverted header">Relatórios de caixa</h1>
+		</a>
+		<a class="item">
+			<a class="ui orange circular button" href="./new">Novo</a>
+		</a>
+	</div>
+	<?php foreach($viewmodel as $item) : ?>
+	<div class="ui orange segment">
+		<a class="item" href="./day/<?php echo $item['id']; ?>">
+			<div class="ui top attached label">
 				<i class="calendar icon"></i>
-				<input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d', strtotime('-5 day', time())); ?>" max="<?php echo date('Y-m-d'); ?>">
+				<?php echo $item['created']; ?>
 			</div>
-			<span class="help-block"></span>
-		</div>
-		<div class="field">
-			<input class="ui fluid large teal submit button" type="submit" value="Submit" name="submit">              
-		</div>
-		<label>
-			<span class="help-block"></span>
-		</label>		
-	</form>
+			<div class="ui horizontal list">
+				<div class="item">
+					<div class="content">
+						<div class="header">Total Caixa</div>
+						<div class="ui teal label">
+							R$ <?php echo $item['totalcaixa']; ?>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="content">
+						<div class="header">Total TFL</div>
+						<div class="ui teal label">
+							R$ <?php echo $item['totalreport']; ?>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="content">
+						<div class="header">Quebra de Caixa</div>
+						<?php if($item['quebradecaixa'] >= 0) : ?>
+							<div class="ui green label">
+						<?php else : ?>
+							<div class="ui red label">
+						<?php endif; ?>
+								R$ <?php echo $item['quebradecaixa']; ?>
+							</div>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<?php endforeach; ?>
 </div>
